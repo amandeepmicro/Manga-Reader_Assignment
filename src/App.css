@@ -1,38 +1,28 @@
+body {
+  margin: 0px;
+}
 .App {
+  max-width: 671px;
+  margin: auto;
   text-align: center;
 }
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.activeManga {
+  background-color: #055b5e;
+}
+.activeManga:focus {
+  border: 2px solid #b4813b;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.activeChapter {
+  background-color: #055b5e;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.activeChapter:active {
+  border: 2px solid #b4813b;
 }
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.mangaImg {
+  height: 100%;
+  object-fit: contain;
+  object-position: center center;
+  width: 100%;
 }

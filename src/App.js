@@ -1,25 +1,115 @@
-import logo from './logo.svg';
+import React, { useState, useEffect } from 'react';
+import { getBooks, getChapter } from './services/mangaAPI';
+import PagingView from './page/pagingView';
 import './App.css';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+   const [data, setData] = useState({
+      books: [],
+      currentBook: 0,
+      booksData: []
+   })
+
+   useEffect(() => {
+      const initialiseApp = async () => {
+         const books = await getBooks().then(response => response.json());
+         const firstBook = await mergePagesAndCacheImages(books[0].chapter_ids)
+         setData(data => ({
+            ...data,
+            books,
+            booksData: [firstBook]
+         }))
+
+      }
+      initialiseApp()
+   }, []);
+
+
+   useEffect(() => {
+      const fetchOtherBooks = async () => {
+         const [firstBook, ...otherBooks] = [...data.books]
+         console.log(firstBook, otherBooks)
+         for (const book of otherBooks) {
+            const otherBookData = await mergePagesAndCacheImages(book.chapter_ids)
+            setData(data => ({
+               ...data,
+               booksData: [
+                  ...data.booksData, otherBookData
+               ]
+            }))
+         }
+      }
+      if (data.books.length > 0) {
+         fetchOtherBooks();
+      }
+      return;
+   }, [data.books])
+
+   const mergePagesAndCacheImages = async (chapters) => {
+      let mergedPages = {}
+      for (const [i, chapter] of Object.entries(chapters)) {
+         const pages = await fetchAllPagesOfChapter(chapter)
+         mergedPages[i] = pages;
+         cacheImages(pages)
+      }
+      return mergedPages;
+   }
+
+   const cacheImages = async (pages) => {
+      const promises = await pages.map((page) => {
+         return new Promise(function (resolve, reject) {
+            const img = new Image();
+            img.src = page.image.file;
+            img.onload = resolve();
+            img.onerror = reject();
+         })
+      })
+      await Promise.all(promises)
+   }
+
+   const fetchAllPagesOfChapter = async (chapter) => {
+      const pages = await getChapter(chapter)
+         .then(response => response.json())
+         .then(({ pages }) => {
+            return pages
+         })
+      return pages;
+   }
+
+
+   const handleBookChange = (i) => {
+      //console.log(i)
+      setData({
+         ...data,
+         currentBook: i
+      })
+   }
+   if (Object.keys(data.books).length > 0) {
+      return (
+         <div className="App">
+
+            {data.books.map((book, i) => {
+               return (
+                  <button
+                     key={i}
+                     onClick={() => handleBookChange(i)}
+                     className={`${data.currentBook === i ? 'activeManga' : ''}`}
+                  >
+                     {book.title}
+                  </button>
+               )
+            })}
+            <br />
+
+            <PagingView
+               currentBookData={data.booksData[data.currentBook] || null}
+            />
+         </div>
+      )
+   } else {
+      return <div>Loading...</div>
+   }
 }
 
 export default App;
