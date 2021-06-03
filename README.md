@@ -1,3 +1,18 @@
+
+# Manga Reader App Screenshots
+
+<table>
+  <tr>
+    <td>Second Book Page</td>
+     <td>Third Book Page</td>
+  </tr>
+  <tr>
+    <td><img src="https://res.cloudinary.com/dryiuvv1l/image/upload/v1622691876/manga-reader/m1_g636gt.jpg" width=270 height=480></td>
+    <td><img src="https://res.cloudinary.com/dryiuvv1l/image/upload/v1622691876/manga-reader/m2_gyrj6r.jpg" width=270 height=480></td>
+    
+  </tr>
+ </table>
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
