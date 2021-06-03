@@ -29,16 +29,17 @@ function App() {
    useEffect(() => {
       const fetchOtherBooks = async () => {
          const [firstBook, ...otherBooks] = [...data.books]
-         console.log(firstBook, otherBooks)
+         let otherBookDataArr = [];
          for (const book of otherBooks) {
             const otherBookData = await mergePagesAndCacheImages(book.chapter_ids)
-            setData(data => ({
-               ...data,
-               booksData: [
-                  ...data.booksData, otherBookData
-               ]
-            }))
+            otherBookDataArr.push(otherBookData)
          }
+         setData(data => ({
+            ...data,
+            booksData: [
+               ...data.booksData, ...otherBookDataArr
+            ]
+         }))
       }
       if (data.books.length > 0) {
          fetchOtherBooks();
@@ -88,7 +89,8 @@ function App() {
    if (Object.keys(data.books).length > 0) {
       return (
          <div className="App">
-
+            <h4>Manga Reader</h4>
+            <marquee>Click on <span style={{ color: "red" }}>left half</span> or <span style={{ color: "blue" }}>right half </span>of image to change page.</marquee>
             {data.books.map((book, i) => {
                return (
                   <button

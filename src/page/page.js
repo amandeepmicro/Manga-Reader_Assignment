@@ -9,11 +9,11 @@ function Page({ url, handleLeftClick, handleRightClick }) {
          const clickTargetWidth = clickTarget.offsetWidth;
          const xCoordInClickTarget = e.clientX - clickTarget.getBoundingClientRect().left;
          if (clickTargetWidth / 2 > xCoordInClickTarget) {
-            // left click
-            handleLeftClick()
-         } else {
             // right click
             handleRightClick()
+         } else {
+            // left click
+            handleLeftClick()
          }
       }
 

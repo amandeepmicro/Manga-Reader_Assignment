@@ -3,7 +3,8 @@ body {
 }
 .App {
   max-width: 671px;
-  margin: auto;
+  height: 100%;
+  margin: 30px auto;
   text-align: center;
 }
 .activeManga {
@@ -17,9 +18,6 @@ body {
   background-color: #055b5e;
 }
 
-.activeChapter:active {
-  border: 2px solid #b4813b;
-}
 .mangaImg {
   height: 100%;
   object-fit: contain;
