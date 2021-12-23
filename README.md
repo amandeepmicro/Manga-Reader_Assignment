@@ -1,4 +1,3 @@
-
 # Manga Reader App Screenshots
 
 <table>
@@ -10,6 +9,11 @@
     <td><img src="https://res.cloudinary.com/dryiuvv1l/image/upload/v1622691876/manga-reader/m1_g636gt.jpg" width=270 height=480></td>
     <td><img src="https://res.cloudinary.com/dryiuvv1l/image/upload/v1622691876/manga-reader/m2_gyrj6r.jpg" width=270 height=480></td>
     
+  </tr>
+  <tr>
+
+<video src='https://res.cloudinary.com/dryiuvv1l/video/upload/v1640246314/manga-reader/React-App-manga_dvac9j.webm' width=180></video>
+
   </tr>
  </table>
 
